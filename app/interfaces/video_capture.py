@@ -7,17 +7,16 @@ class VideoCapture:
         self.window_name = window_name
 
     def screen(self):
-        cv2.namedWindow(self.window_name)
-
-        monitor = {'top': 0, 'left': 0, 'width': 1360, 'height': 768}
+    
+        monitor = {'top': 0, 'left': 0, 'width': 800, 'height': 600}
         sct = mss()
 
         while True:
             img = sct.grab(monitor)
             frame = np.array(img)
-            frame = cv2.resize(frame, tuple([int(measure*0.8) for measure in frame.shape[1::-1]]))
+            frame = cv2.resize(frame, tuple([int(measure*0.3) for measure in frame.shape[1::-1]]))
             # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            cv2.imshow(self.window_name, frame)
+            cv2.imshow("Screen Captures", frame)
             if cv2.waitKey(1) == 27:
                 break
 
@@ -38,7 +37,7 @@ class VideoCapture:
                 frame = np.rot90(frame, k=-1, axes=(0, 1))
             # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             cv2.imshow(self.window_name, frame)
-
+            
             key = cv2.waitKey(1)
             if key == 27:
                 break
